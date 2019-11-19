@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CartButton from "../CartButton";
 
 // NativeBase Components
 import {
@@ -40,7 +41,11 @@ class CoffeeDetail extends Component {
 
   render() {
     if (!coffeeshops) return <Content />;
-    const coffeeshop = coffeeshops[0];
+
+    const coffeeID = this.props.navigation.getParam("coffeeID");
+
+    const coffeeshop = coffeeshops.find(cafe => coffeeID === cafe.id);
+
     return (
       <Content>
         <List>
@@ -92,5 +97,10 @@ class CoffeeDetail extends Component {
     );
   }
 }
+
+CoffeeDetail.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam("name"),
+  headerRight: <CartButton />
+});
 
 export default CoffeeDetail;
